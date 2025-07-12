@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Pac-Man TMA</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="welcome-container">
+            <div class="pacman-welcome">
+                <div class="pacman-character yellow"></div>
+                <div class="speech-bubble">
+                    <p>Привет! Добро пожаловать в нашу игру. У нас есть бонус — собери 50 монет и получи его! Надеюсь, тебе понравится.</p>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="showCharacterSelect()">Next</button>
+        </div>
+    </div>
+
+    <!-- Character Select Screen -->
+    <div id="character-screen" class="screen">
+        <div class="character-container">
+            <h2>Выбери своего Пакмана</h2>
+            <div class="character-grid">
+                <div class="character-option" data-color="yellow" onclick="selectCharacter('yellow')">
+                    <div class="pacman-character yellow"></div>
+                    <span>Жёлтый</span>
+                </div>
+                <div class="character-option" data-color="red" onclick="selectCharacter('red')">
+                    <div class="pacman-character red"></div>
+                    <span>Красный</span>
+                </div>
+                <div class="character-option" data-color="blue" onclick="selectCharacter('blue')">
+                    <div class="pacman-character blue"></div>
+                    <span>Синий</span>
+                </div>
+                <div class="character-option" data-color="green" onclick="selectCharacter('green')">
+                    <div class="pacman-character green"></div>
+                    <span>Зелёный</span>
+                </div>
+            </div>
+            <button class="btn-primary" id="play-btn" onclick="startGame()" disabled>Play</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <div class="score">Монеты: <span id="score">0</span></div>
+            <div class="level">Уровень: <span id="level">1</span></div>
+            <div class="lives">Жизни: <span id="lives">3</span></div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div class="game-controls">
+            <div class="control-pad">
+                <button class="control-btn up" ontouchstart="handleTouch('up')" ontouchend="handleTouchEnd()">↑</button>
+                <div class="control-row">
+                    <button class="control-btn left" ontouchstart="handleTouch('left')" ontouchend="handleTouchEnd()">←</button>
+                    <button class="control-btn right" ontouchstart="handleTouch('right')" ontouchend="handleTouchEnd()">→</button>
+                </div>
+                <button class="control-btn down" ontouchstart="handleTouch('down')" ontouchend="handleTouchEnd()">↓</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bonus Modal -->
+    <div id="bonus-modal" class="modal">
+        <div class="modal-content">
+            <div class="bonus-animation">🎉</div>
+            <h2>Поздравляем!</h2>
+            <p>Ты собрал 50 монет и получил бонус: 50 FS! Чтобы забрать, нажми кнопку ниже.</p>
+            <button class="btn-bonus" onclick="claimBonus()">Забрать бонус</button>
+            <button class="btn-secondary" onclick="closeBonusModal()">Продолжить игру</button>
+        </div>
+    </div>
+
+    <!-- Ad Screen -->
+    <div id="ad-screen" class="screen">
+        <div class="ad-container">
+            <div class="ad-header">
+                <h3>Реклама</h3>
+                <div class="ad-timer">Осталось: <span id="ad-timer">30</span>с</div>
+            </div>
+            <div class="ad-content">
+                <div class="spinning-logo">
+                    <div class="casino-logo">🎰</div>
+                    <h2>КАЗИНО</h2>
+                    <p>Играй и выигрывай!</p>
+                </div>
+            </div>
+            <button class="btn-primary" id="skip-ad-btn" onclick="skipAd()" disabled>Пропустить</button>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameover-screen" class="screen">
+        <div class="gameover-container">
+            <h2>Игра окончена!</h2>
+            <div class="final-score">Собрано монет: <span id="final-score">0</span></div>
+            <button class="btn-primary" onclick="restartGame()">Играть снова</button>
+            <button class="btn-secondary" onclick="showWelcome()">В главное меню</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
